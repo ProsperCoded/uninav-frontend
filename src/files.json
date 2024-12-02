@@ -1,0 +1,254 @@
+[
+  {
+    "id": 1,
+    "username": "jdoe1",
+    "faculty": "Engineering",
+    "department": "Civil Engineering",
+    "courses": [
+      {
+        "course_title": "Structural Analysis I",
+        "course_code": "CVE101",
+        "course_files": "BridgeDesign.pdf"
+      },
+      {
+        "course_title": "Geotechnical Engineering",
+        "course_code": "CVE204",
+        "course_files": "SoilMechanics.pdf"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "username": "asmith2",
+    "faculty": "Arts",
+    "department": "English",
+    "courses": [
+      {
+        "course_title": "Introduction to Literature",
+        "course_code": "ENG101",
+        "course_files": "LiteratureBasics.docx"
+      },
+      {
+        "course_title": "Creative Writing",
+        "course_code": "ENG203",
+        "course_files": "WritingWorkshop.pdf"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "username": "bwhite3",
+    "faculty": "Science",
+    "department": "Microbiology",
+    "courses": [
+      {
+        "course_title": "Microbial Physiology",
+        "course_code": "MBI210",
+        "course_files": "MicrobialLife.ppt"
+      },
+      {
+        "course_title": "Immunology",
+        "course_code": "MBI304",
+        "course_files": "ImmuneSystem.pdf"
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "username": "knguyen4",
+    "faculty": "Social Sciences",
+    "department": "Psychology",
+    "courses": [
+      {
+        "course_title": "Cognitive Psychology",
+        "course_code": "PSY201",
+        "course_files": "CognitionBasics.pdf"
+      },
+      {
+        "course_title": "Behavioral Neuroscience",
+        "course_code": "PSY301",
+        "course_files": "NeuroscienceOverview.pptx"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "username": "lmorris5",
+    "faculty": "Science",
+    "department": "Computer Science",
+    "courses": [
+      {
+        "course_title": "Web Development",
+        "course_code": "CSC205",
+        "course_files": "HTMLBasics.mp4"
+      },
+      {
+        "course_title": "Artificial Intelligence",
+        "course_code": "CSC410",
+        "course_files": "AIIntro.pdf"
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "username": "odavis6",
+    "faculty": "Basic Medical Sciences",
+    "department": "Physiology",
+    "courses": [
+      {
+        "course_title": "Human Physiology I",
+        "course_code": "PHY101",
+        "course_files": "NervousSystem.ppt"
+      },
+      {
+        "course_title": "Endocrinology",
+        "course_code": "PHY303",
+        "course_files": "Hormones.pdf"
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "username": "clark7",
+    "faculty": "Law",
+    "department": "Law",
+    "courses": [
+      {
+        "course_title": "Criminal Law",
+        "course_code": "LAW201",
+        "course_files": "CriminalCases.docx"
+      },
+      {
+        "course_title": "Contract Law",
+        "course_code": "LAW301",
+        "course_files": "ContractBasics.pdf"
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "username": "patel8",
+    "faculty": "Agriculture and Forestry",
+    "department": "Agronomy",
+    "courses": [
+      {
+        "course_title": "Crop Production",
+        "course_code": "AGR101",
+        "course_files": "CropBasics.ppt"
+      },
+      {
+        "course_title": "Soil Science",
+        "course_code": "AGR203",
+        "course_files": "SoilProperties.pdf"
+      }
+    ]
+  },
+  {
+    "id": 9,
+    "username": "lopez9",
+    "faculty": "Environmental Design and Management",
+    "department": "Architecture",
+    "courses": [
+      {
+        "course_title": "Architectural Drawing",
+        "course_code": "ARC102",
+        "course_files": "DrawingTechniques.pdf"
+      },
+      {
+        "course_title": "Building Design",
+        "course_code": "ARC205",
+        "course_files": "DesignPrinciples.docx"
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "username": "nguyen10",
+    "faculty": "Public Health",
+    "department": "Environmental Health Science",
+    "courses": [
+      {
+        "course_title": "Epidemiology",
+        "course_code": "PHE201",
+        "course_files": "EpidemiologyBasics.pdf"
+      },
+      {
+        "course_title": "Health Policy",
+        "course_code": "PHE305",
+        "course_files": "PolicyGuidelines.pdf"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "username": "TechPRO",
+    "faculty": "Science",
+    "department": "Computer Science",
+    "courses": [
+      {
+        "course_title": "Introdction to  programming",
+        "course_code": "CSC101",
+        "course_files": "intro.pdf"
+      },
+      {
+        "course_title": "Introduction to computing",
+        "course_code": "CSC102",
+        "course_files": "csc.pdf"
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "username": "DataWizard",
+    "faculty": "Science",
+    "department": "Mathematics",
+    "courses": [
+      {
+        "course_title": "Calculus I",
+        "course_code": "MTH101",
+        "course_files": "calculus1.pdf"
+      },
+      {
+        "course_title": "Linear Algebra",
+        "course_code": "MTH102",
+        "course_files": "linear_algebra.pdf"
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "username": "BioExplorer",
+    "faculty": "Science",
+    "department": "Biochemistry",
+    "courses": [
+      {
+        "course_title": "Biomolecules",
+        "course_code": "BCH201",
+        "course_files": "biomolecules.pdf"
+      },
+      {
+        "course_title": "Enzymology",
+        "course_code": "BCH202",
+        "course_files": "enzymology.pdf"
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "username": "PhysicsGuru",
+    "faculty": "Science",
+    "department": "Physics",
+    "courses": [
+      {
+        "course_title": "Classical Mechanics",
+        "course_code": "PHY101",
+        "course_files": "classical_mechanics.pdf"
+      },
+      {
+        "course_title": "Electromagnetism",
+        "course_code": "PHY102",
+        "course_files": "electromagnetism.pdf"
+      }
+    ]
+  }
+]
