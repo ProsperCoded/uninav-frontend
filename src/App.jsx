@@ -8,7 +8,7 @@ import Forgot_Password from "./Pages/Forgot_Password";
 import HomePage from "./Pages/HomePage";
 import Login from "./Pages/Login";
 import Main from "./Pages/Main";
-import Sch_result from "./Pages/sch_result";
+import Sch_result from "./Pages/Sch_result";
 
 const App = () => {
   return (

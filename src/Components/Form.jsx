@@ -1,10 +1,34 @@
 import React, { useState } from "react";
-import Ui from "../assets/images/Ui.jpg";
+import Ui from "../assets/images/UI.jpg";
 import Ui_2 from "../assets/images/1726220935-university-of-ibadan_gfbmbo.jpg";
 import { Link } from "react-router-dom";
 import Logo from "../assets/images/logo_main.png";
+import { useEffect } from "react";
+import { getDepartments, getFaculties } from "../api";
+import { useMemo } from "react";
 
 const Login = ({ signUp, welcome, user }) => {
+  const [faculties, setFaculties] = useState();
+  const [selectedFaculty, setSelectedFaculty] = useState("");
+  const [selectedDepartment, setSelectedDepartment] = useState("");
+  const [error, setError] = useState("");
+  useEffect(() => {
+    // fetch departments and faculties
+
+    // no need to fetch departments since it's already embedded in departments in faculty object
+    // getDepartments().then((departments) => {
+    //   console.log(departments);
+    // });
+    getFaculties((error) => {
+      console.error(error);
+      setError(error);
+    }).then((faculties) => {
+      if (faculties) {
+        console.log(faculties);
+        setFaculties(faculties);
+      }
+    });
+  }, []);
   const [info, setInfo] = useState({
     username_Signin: "",
     password_Signin: "",
@@ -16,17 +40,17 @@ const Login = ({ signUp, welcome, user }) => {
   });
 
   return (
-    <section className="login_cont mx-auto w-75 m-3 mt-lg-5">
+    <section className="m-3 mx-auto mt-lg-5 w-75 login_cont">
       <div className="row">
-        <div className="position-absolute top-0 start-0 w-50 ">
-          <img src={Logo} className="img-fluid w-25 rounded-2" alt="" />
+        <div className="top-0 position-absolute w-50 start-0">
+          <img src={Logo} className="rounded-2 w-25 img-fluid" alt="" />
         </div>
         <div className="col-md-6">
           <div className="img_cov">
             <img src={user ? Ui : Ui_2} alt="" />
           </div>
         </div>
-        <div className="col-md-6 col-12">
+        <div className="col-12 col-md-6">
           <div
             className={`fm_cov position-relative m-2  mx-lg-5 ${
               user ? "mt-lg-5" : "mt-lg-3"
@@ -50,7 +74,8 @@ const Login = ({ signUp, welcome, user }) => {
                     <input name="password_Signin" type="text" />
                   </div>
                   <div className="d-flex justify-content-between align-items-center mt-3">
-                    <div className="rem d-flex align-items-center gap-1">
+                    {error && <small className="text-danger">{error}</small>}
+                    <div className="d-flex align-items-center gap-1 rem">
                       <input type="checkbox" name="" id="" />
                       <small>Remeber me</small>
                     </div>
@@ -58,13 +83,13 @@ const Login = ({ signUp, welcome, user }) => {
                       <Link to={"/forgot_password"}>Forgot Password?</Link>
                     </div>
                   </div>
-                  <div className="lg_btn mt-2">
+                  <div className="mt-2 lg_btn">
                     <button>{signUp}</button>
                   </div>
-                  <div className="sn_ln mt-1">
+                  <div className="mt-1 sn_ln">
                     <div className="d-flex align-items-center">
                       <small>New User?</small>
-                      <Link to={"/signUp"} className="sn_link ms-1">
+                      <Link to={"/signUp"} className="ms-1 sn_link">
                         Sign Up
                       </Link>
                     </div>
@@ -82,125 +107,60 @@ const Login = ({ signUp, welcome, user }) => {
                     <select
                       class="form-select"
                       aria-label="Default select example"
+                      disabled={!faculties}
+                      onChange={(e) => {
+                        const selected = e.target.value;
+                        console.log("Selected", selected);
+                        setSelectedFaculty(selected);
+                      }}
                     >
                       <option selected>Select Faculty</option>
-                      <option value="Agriculture and Forestry">
-                        Agriculture and Forestry
-                      </option>
-                      <option value="Arts">Arts</option>
-                      <option value="Basic Medical Sciences">
-                        Basic Medical Sciences
-                      </option>
-                      <option value="Clinical Sciences">
-                        Clinical Sciences
-                      </option>
-                      <option value="Dentistry">Dentistry</option>
-                      <option value="Education">Education</option>
-                      <option value="Engineering">Engineering</option>
-                      <option value="Environmental Design and Management">
-                        Environmental Design and Management
-                      </option>
-                      <option value="Law">Law</option>
-                      <option value="Pharmacy">Pharmacy</option>
-                      <option value="Public Health">Public Health</option>
-                      <option value="Science">Science</option>
-                      <option value="Social Sciences">Social Sciences</option>
-                      <option value="Technology">Technology</option>
-                      <option value="Veterinary Medicine">
-                        Veterinary Medicine
-                      </option>
+                      {faculties && (
+                        <>
+                          {faculties.map((faculty) => {
+                            return (
+                              <option
+                                value={faculty._id}
+                                key={faculty.facultyName}
+                              >
+                                {faculty.facultyName}
+                              </option>
+                            );
+                          })}
+                        </>
+                      )}
                     </select>
                   </div>
                   <div className="mt-3 in_put">
                     <select
                       class="form-select"
                       aria-label="Default select example"
+                      disabled={!faculties}
+                      onChange={(e) => {
+                        if (e.target) {
+                          setSelectedDepartment(e.target.value);
+                        }
+                      }}
                     >
-                      <option selected>Select Department</option>
-                      <option value="Agricultural and Environmental Engineering">
-                        Agricultural and Environmental Engineering
+                      <option selected>
+                        Select Department {!faculties && "Select a departments"}
                       </option>
-                      <option value="Agricultural Extension and Rural Development">
-                        Agricultural Extension and Rural Development
-                      </option>
-                      <option value="Agronomy">Agronomy</option>
-                      <option value="Anatomy">Anatomy</option>
-                      <option value="Anthropology">Anthropology</option>
-                      <option value="Arabic and Islamic Studies">
-                        Arabic and Islamic Studies
-                      </option>
-                      <option value="Archaeology">Archaeology</option>
-                      <option value="Architecture">Architecture</option>
-                      <option value="Biochemistry">Biochemistry</option>
-                      <option value="Botany">Botany</option>
-                      <option value="Chemical Engineering">
-                        Chemical Engineering
-                      </option>
-                      <option value="Chemistry">Chemistry</option>
-                      <option value="Civil Engineering">
-                        Civil Engineering
-                      </option>
-                      <option value="Classics">Classics</option>
-                      <option value="Communication and Language Arts">
-                        Communication and Language Arts
-                      </option>
-                      <option value="Computer Science">Computer Science</option>
-                      <option value="Dentistry">Dentistry</option>
-                      <option value="Economics">Economics</option>
-                      <option value="Education">Education</option>
-                      <option value="Electrical and Electronics Engineering">
-                        Electrical and Electronics Engineering
-                      </option>
-                      <option value="English">English</option>
-                      <option value="Environmental Health Science">
-                        Environmental Health Science
-                      </option>
-                      <option value="Fine and Applied Arts">
-                        Fine and Applied Arts
-                      </option>
-                      <option value="Food Technology">Food Technology</option>
-                      <option value="Forestry and Wildlife Management">
-                        Forestry and Wildlife Management
-                      </option>
-                      <option value="Geography">Geography</option>
-                      <option value="Geology">Geology</option>
-                      <option value="History">History</option>
-                      <option value="Human Nutrition and Dietetics">
-                        Human Nutrition and Dietetics
-                      </option>
-                      <option value="Industrial and Production Engineering">
-                        Industrial and Production Engineering
-                      </option>
-                      <option value="Library, Archival and Information Studies">
-                        Library, Archival and Information Studies
-                      </option>
-                      <option value="Linguistics">Linguistics</option>
-                      <option value="Mathematics">Mathematics</option>
-                      <option value="Mechanical Engineering">
-                        Mechanical Engineering
-                      </option>
-                      <option value="Medicine and Surgery">
-                        Medicine and Surgery
-                      </option>
-                      <option value="Microbiology">Microbiology</option>
-                      <option value="Nursing">Nursing</option>
-                      <option value="Philosophy">Philosophy</option>
-                      <option value="Physics">Physics</option>
-                      <option value="Physiology">Physiology</option>
-                      <option value="Political Science">
-                        Political Science
-                      </option>
-                      <option value="Psychology">Psychology</option>
-                      <option value="Religious Studies">
-                        Religious Studies
-                      </option>
-                      <option value="Social Work">Social Work</option>
-                      <option value="Sociology">Sociology</option>
-                      <option value="Statistics">Statistics</option>
-                      <option value="Veterinary Medicine">
-                        Veterinary Medicine
-                      </option>
-                      <option value="Zoology">Zoology</option>
+                      {selectedFaculty && (
+                        <>
+                          {faculties
+                            .find((faculty) => faculty._id === selectedFaculty)
+                            .departments.map((department) => {
+                              return (
+                                <option
+                                  value={department._id}
+                                  key={department.departmentName}
+                                >
+                                  {department.departmentName}
+                                </option>
+                              );
+                            })}
+                        </>
+                      )}
                     </select>
                   </div>
                   <div className="mt-2 in_put">
@@ -215,18 +175,18 @@ const Login = ({ signUp, welcome, user }) => {
                     </label>
                     <input type="password" />
                   </div>
-                  <div className="d-flex gap-2 align-items-center mt-3">
+                  <div className="d-flex align-items-center gap-2 mt-3">
                     <input type="checkbox" name="" id="" />
                     <small className="fm_sm">Remeber me</small>
                   </div>
-                  <div className="rem d-flex align-items-center gap-1"></div>
-                  <div className="lg_btn mt-2">
+                  <div className="d-flex align-items-center gap-1 rem"></div>
+                  <div className="mt-2 lg_btn">
                     <button>{signUp}</button>
                   </div>
-                  <div className="sn_ln mt-1">
+                  <div className="mt-1 sn_ln">
                     <div className="d-flex align-items-center">
                       <small>Already a user?</small>
-                      <Link to={"/logIn"} className="sn_link ms-1">
+                      <Link to={"/logIn"} className="ms-1 sn_link">
                         Login
                       </Link>
                     </div>

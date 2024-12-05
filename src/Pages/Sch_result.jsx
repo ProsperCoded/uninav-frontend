@@ -11,7 +11,7 @@ const Sch_result = () => {
         <div className="sch_cv mt-3">
           <small className="sm_cov">
             <b>
-              HOME <span> >> </span>
+              HOME <span> </span>
             </b>
             <span className="text-secondary sch_sm">{result}</span>
           </small>
