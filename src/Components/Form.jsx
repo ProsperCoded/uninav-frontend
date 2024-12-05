@@ -12,13 +12,8 @@ const Login = ({ signUp, welcome, user }) => {
   const [selectedFaculty, setSelectedFaculty] = useState("");
   const [selectedDepartment, setSelectedDepartment] = useState("");
   const [error, setError] = useState("");
-  useEffect(() => {
-    // fetch departments and faculties
 
-    // no need to fetch departments since it's already embedded in departments in faculty object
-    // getDepartments().then((departments) => {
-    //   console.log(departments);
-    // });
+  useEffect(() => {
     getFaculties((error) => {
       console.error(error);
       setError(error);
@@ -29,12 +24,12 @@ const Login = ({ signUp, welcome, user }) => {
       }
     });
   }, []);
-  const [info, setInfo] = useState({
+  const [signInData, setSignInData] = useState({
     username_Signin: "",
     password_Signin: "",
   });
 
-  const [infoTwo, setInfoTwo] = useState({
+  const [signUpData, userSignUpData] = useState({
     username_SignUp: "",
     password_SignUp: "",
   });
@@ -42,9 +37,11 @@ const Login = ({ signUp, welcome, user }) => {
   return (
     <section className="m-3 mx-auto mt-lg-5 w-75 login_cont">
       <div className="row">
-        <div className="top-0 position-absolute w-50 start-0">
-          <img src={Logo} className="rounded-2 w-25 img-fluid" alt="" />
-        </div>
+        <Link to={"/"}>
+          <div className="top-0 position-absolute w-50 start-0">
+            <img src={Logo} className="rounded-2 w-25 img-fluid" alt="" />
+          </div>
+        </Link>
         <div className="col-md-6">
           <div className="img_cov">
             <img src={user ? Ui : Ui_2} alt="" />
@@ -59,140 +56,102 @@ const Login = ({ signUp, welcome, user }) => {
             <form action="">
               <h1 className="fm_head">{signUp}</h1>
               <p>{welcome}</p>
-              {user ? (
-                <div>
-                  <div className="mt-4 in_put">
-                    <label htmlFor="" className="mb-2">
-                      Username:
-                    </label>
-                    <input name="username_Sign" type="text" />
-                  </div>
-                  <div className="mt-4 in_put">
-                    <label htmlFor="" className="mb-2">
-                      Password:
-                    </label>
-                    <input name="password_Signin" type="text" />
-                  </div>
-                  <div className="d-flex justify-content-between align-items-center mt-3">
-                    {error && <small className="text-danger">{error}</small>}
-                    <div className="d-flex align-items-center gap-1 rem">
-                      <input type="checkbox" name="" id="" />
-                      <small>Remeber me</small>
-                    </div>
-                    <div className="for_get">
-                      <Link to={"/forgot_password"}>Forgot Password?</Link>
-                    </div>
-                  </div>
-                  <div className="mt-2 lg_btn">
-                    <button>{signUp}</button>
-                  </div>
-                  <div className="mt-1 sn_ln">
-                    <div className="d-flex align-items-center">
-                      <small>New User?</small>
-                      <Link to={"/signUp"} className="ms-1 sn_link">
-                        Sign Up
-                      </Link>
-                    </div>
-                  </div>
+              <div>
+                <div className="mt-2 in_put">
+                  <label htmlFor="" className="mb-2">
+                    Username:
+                  </label>
+                  <input name="username_SignUp" type="text" />
                 </div>
-              ) : (
-                <div>
-                  <div className="mt-2 in_put">
-                    <label htmlFor="" className="mb-2">
-                      Username:
-                    </label>
-                    <input name="username_SignUp" type="text" />
-                  </div>
-                  <div className="mt-3 in_put">
-                    <select
-                      class="form-select"
-                      aria-label="Default select example"
-                      disabled={!faculties}
-                      onChange={(e) => {
-                        const selected = e.target.value;
-                        console.log("Selected", selected);
-                        setSelectedFaculty(selected);
-                      }}
-                    >
-                      <option selected>Select Faculty</option>
-                      {faculties && (
-                        <>
-                          {faculties.map((faculty) => {
+                <div className="mt-3 in_put">
+                  <select
+                    class="form-select"
+                    aria-label="Default select example"
+                    disabled={!faculties}
+                    onChange={(e) => {
+                      const selected = e.target.value;
+                      console.log("Selected", selected);
+                      setSelectedFaculty(selected);
+                    }}
+                  >
+                    <option selected>Select Faculty</option>
+                    {faculties && (
+                      <>
+                        {faculties.map((faculty) => {
+                          return (
+                            <option
+                              value={faculty._id}
+                              key={faculty.facultyName}
+                            >
+                              {faculty.facultyName}
+                            </option>
+                          );
+                        })}
+                      </>
+                    )}
+                  </select>
+                </div>
+                <div className="mt-3 in_put">
+                  <select
+                    class="form-select"
+                    aria-label="Default select example"
+                    disabled={!faculties}
+                    onChange={(e) => {
+                      if (e.target) {
+                        setSelectedDepartment(e.target.value);
+                      }
+                    }}
+                  >
+                    <option selected>
+                      Select Department {!faculties && "Select a departments"}
+                    </option>
+                    {selectedFaculty && (
+                      <>
+                        {faculties
+                          .find((faculty) => faculty._id === selectedFaculty)
+                          .departments.map((department) => {
                             return (
                               <option
-                                value={faculty._id}
-                                key={faculty.facultyName}
+                                value={department._id}
+                                key={department.departmentName}
                               >
-                                {faculty.facultyName}
+                                {department.departmentName}
                               </option>
                             );
                           })}
-                        </>
-                      )}
-                    </select>
-                  </div>
-                  <div className="mt-3 in_put">
-                    <select
-                      class="form-select"
-                      aria-label="Default select example"
-                      disabled={!faculties}
-                      onChange={(e) => {
-                        if (e.target) {
-                          setSelectedDepartment(e.target.value);
-                        }
-                      }}
-                    >
-                      <option selected>
-                        Select Department {!faculties && "Select a departments"}
-                      </option>
-                      {selectedFaculty && (
-                        <>
-                          {faculties
-                            .find((faculty) => faculty._id === selectedFaculty)
-                            .departments.map((department) => {
-                              return (
-                                <option
-                                  value={department._id}
-                                  key={department.departmentName}
-                                >
-                                  {department.departmentName}
-                                </option>
-                              );
-                            })}
-                        </>
-                      )}
-                    </select>
-                  </div>
-                  <div className="mt-2 in_put">
-                    <label htmlFor="" className="mb-2">
-                      Password:
-                    </label>
-                    <input name="password_SignUp" type="password" />
-                  </div>
-                  <div className="mt-2 in_put">
-                    <label htmlFor="" className="mb-2">
-                      Confirm password:
-                    </label>
-                    <input type="password" />
-                  </div>
-                  <div className="d-flex align-items-center gap-2 mt-3">
-                    <input type="checkbox" name="" id="" />
-                    <small className="fm_sm">Remeber me</small>
-                  </div>
-                  <div className="d-flex align-items-center gap-1 rem"></div>
-                  <div className="mt-2 lg_btn">
-                    <button>{signUp}</button>
-                  </div>
-                  <div className="mt-1 sn_ln">
-                    <div className="d-flex align-items-center">
-                      <small>Already a user?</small>
-                      <Link to={"/logIn"} className="ms-1 sn_link">
-                        Login
-                      </Link>
-                    </div>
+                      </>
+                    )}
+                  </select>
+                </div>
+                <div className="mt-2 in_put">
+                  <label htmlFor="" className="mb-2">
+                    Password:
+                  </label>
+                  <input name="password_SignUp" type="password" />
+                </div>
+                <div className="mt-2 in_put">
+                  <label htmlFor="" className="mb-2">
+                    Confirm password:
+                  </label>
+                  <input type="password" />
+                </div>
+                <div className="d-flex align-items-center gap-2 mt-3">
+                  <input type="checkbox" name="" id="" />
+                  <small className="fm_sm">Remeber me</small>
+                </div>
+                <div className="d-flex align-items-center gap-1 rem"></div>
+                <div className="mt-2 lg_btn">
+                  <button>{signUp}</button>
+                </div>
+                <div className="mt-1 sn_ln">
+                  <div className="d-flex align-items-center">
+                    <small>Already a user?</small>
+                    <Link to={"/logIn"} className="ms-1 sn_link">
+                      Login
+                    </Link>
                   </div>
                 </div>
-              )}
+              </div>
             </form>
           </div>
         </div>
