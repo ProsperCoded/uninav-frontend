@@ -11,7 +11,7 @@ const Nav = ({ login }) => {
   const [isVisible, setIsVisible] = useState(true);
 
   const handleTransitionEnd = () => {
-    if (drop) setIsVisible(false); 
+    if (drop) setIsVisible(false);
   };
 
   const changeDrop = () => {
@@ -22,10 +22,10 @@ const Nav = ({ login }) => {
       <nav className="navbar">
         <div className="container-fluid">
           <Link to={"/"} className="navbar-brand">
-            <img src={Logo} className="img-fluid w-25 rounded-2" alt="" />
+            <img src={Logo} className="rounded-2 w-25 img-fluid" alt="" />
           </Link>
           {login ? (
-            <div className="d-flex  align-items-center">
+            <div className="d-flex align-items-center">
               <div>
                 {/* <ModalPage icon={<CiSearch />} /> */}
                 {login ? (
@@ -34,12 +34,12 @@ const Nav = ({ login }) => {
                   <input type="search" className="sch_nav"></input>
                 )}
               </div>
-              <div className="lg_out_cont ">
-                <div className="nav_img_cov ms-3 mt-5" onClick={changeDrop}>
+              <div className="lg_out_cont">
+                <div className="mt-5 ms-3 nav_img_cov" onClick={changeDrop}>
                   <img className="nav_img" src={Profile} alt="" />
                 </div>
                 <div
-                  className="lg_out d-flex gap-1 align-items-center"
+                  className="d-flex align-items-center gap-1 lg_out"
                   onClick={changeDrop}
                   style={{
                     transform: drop ? "translateY(-30px)" : "translateY(0)",
@@ -54,7 +54,7 @@ const Nav = ({ login }) => {
               </div>
             </div>
           ) : (
-            <div className="d-flex gap-3 hp_lg align-items-center">
+            <div className="d-flex align-items-center gap-3 hp_lg">
               <Link className="hp_lg_btn" to={"/logIn"}>
                 Log in
               </Link>

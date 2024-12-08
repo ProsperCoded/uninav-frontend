@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 *,
 *::before,
 *::after {
@@ -339,7 +343,7 @@ input[type="number"]::-webkit-inner-spin-button {
   background-color: #fff;
   padding: 10px 15px;
   border-radius: 10px;
-  transition: .3s;
+  transition: 0.3s;
   cursor: pointer;
   color: var(--text-color);
 }
@@ -348,13 +352,11 @@ input[type="number"]::-webkit-inner-spin-button {
   background-color: var(--bg_main_2);
 }
 
-
 .nav_img_cov {
   width: 50px;
   height: 50px;
   border-radius: 50%;
   overflow: hidden;
-
 }
 
 .nav_img_cov img {
@@ -511,7 +513,6 @@ input[type="number"]::-webkit-inner-spin-button {
   margin: 2rem;
   z-index: 3;
   cursor: pointer;
-
 }
 
 .ag_btn .agBtn {
@@ -560,7 +561,8 @@ input[type="number"]::-webkit-inner-spin-button {
   display: none;
 }
 
-.swiper-button-prev, .swiper-button-next {
+.swiper-button-prev,
+.swiper-button-next {
   color: #f9b234 !important;
 }
 
@@ -610,7 +612,6 @@ input[type="number"]::-webkit-inner-spin-button {
       #f0f8ff 10px
     ),
     repeating-linear-gradient(#82741c30, #82741c4c);
-  
 }
 
 .sm_cov {
@@ -623,7 +624,6 @@ input[type="number"]::-webkit-inner-spin-button {
 
 .sch_sm_bar {
   height: 33px;
-
 }
 
 .sch_in {
@@ -650,7 +650,6 @@ input[type="number"]::-webkit-inner-spin-button {
 
 .in_rad input[type="checkbox"] {
   accent-color: var(--bg_main_2);
-
 }
 
 .rfn_sch {
