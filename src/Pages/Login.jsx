@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import Form from "../Components/Form";
 import { Link } from "react-router-dom";
 import Logo from "../assets/images/logo_main.png";
 import Ui from "../assets/images/UI.jpg";
 const Login = () => {
   const [error, setError] = useState("");
+  const [rememberMe, setRememberMe] = useState(false);
   const user = true;
   return (
     <section className="m-3 mx-auto mt-lg-5 w-75 login_cont">
@@ -44,8 +44,17 @@ const Login = () => {
               <div className="d-flex justify-content-between align-items-center mt-3">
                 {error && <small className="text-danger">{error}</small>}
                 <div className="d-flex align-items-center gap-1 rem">
-                  <input type="checkbox" name="" id="" />
-                  <small>Remeber me</small>
+                  <input
+                    type="checkbox"
+                    name=""
+                    id="remember-me"
+                    onChange={(e) => {
+                      e.target.checked
+                        ? setRememberMe(true)
+                        : setRememberMe(false);
+                    }}
+                  />
+                  <label htmlFor="remember-me">Remeber me</label>
                 </div>
                 <div className="for_get">
                   <Link to={"/forgot_password"}>Forgot Password?</Link>

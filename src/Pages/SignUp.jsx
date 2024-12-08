@@ -1,11 +1,15 @@
 import React, { useState } from "react";
+import Loading from "../Components/Loading";
 import Ui from "../assets/images/UI.jpg";
 import Ui_2 from "../assets/images/1726220935-university-of-ibadan_gfbmbo.jpg";
 import { Link } from "react-router-dom";
 import Logo from "../assets/images/logo_main.png";
 import { useEffect } from "react";
-import { getDepartments, getFaculties, signupApi } from "../api";
-import { useMemo } from "react";
+import { getFaculties, signupApi, loginApi, getUserProfile } from "../api";
+import { storeAuth } from "../libs/util";
+import { useContext } from "react";
+import { MESSAGE_API_CONTEXT, USER_PROFILE_CONTEXT } from "../context";
+import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
   const [faculties, setFaculties] = useState();
@@ -29,6 +33,11 @@ const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+
+  const messageApi = useContext(MESSAGE_API_CONTEXT);
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const { userProfile, setUserProfile } = useContext(USER_PROFILE_CONTEXT);
   async function signUpHandler(e) {
     e.preventDefault();
     if (password !== confirmPassword) {
@@ -58,6 +67,15 @@ const SignUp = () => {
       console.log
     );
     if (!authData) return;
+    storeAuth(authData.accessToken, authData.refreshToken);
+    const _userProfile = await getUserProfile(
+      authData.userId,
+      errorHandler,
+      console.log
+    );
+    setUserProfile(_userProfile);
+    navigate("/"); // Redirect to home page;
+    messageApi.success("Sign up successful");
   }
   return (
     <section className="m-3 mx-auto mt-lg-5 w-75 login_cont">
@@ -74,7 +92,15 @@ const SignUp = () => {
         </div>
         <div className="col-12 col-md-6">
           <div className={`fm_cov position-relative m-2  mx-lg-5`}>
-            <form action="" onSubmit={signUpHandler}>
+            <form
+              action=""
+              onSubmit={(e) => {
+                setLoading(true);
+                signUpHandler(e).then(() => {
+                  setLoading(false);
+                });
+              }}
+            >
               <h1 className="fm_head">Sign up</h1>
               <p>Welcome Signup here</p>
               <div style={{ display: "flex", gap: "1rem" }}>
@@ -152,7 +178,7 @@ const SignUp = () => {
                 </div>
                 <div className="mt-3 in_put">
                   <select
-                    class="form-select"
+                    className="form-select"
                     aria-label="Default select example"
                     disabled={!faculties}
                     onChange={(e) => {
@@ -207,14 +233,23 @@ const SignUp = () => {
                     }}
                   />
                 </div>
-                <div className="d-flex align-items-center gap-2 mt-3">
-                  <input type="checkbox" name="" id="" />
-                  <small className="fm_sm">Remeber me</small>
-                </div>
-                {error && <small className="text-danger">{error}</small>}
+                {error && (
+                  <span className="tw-block tw-p-2 tw-text-center tw-text-red-950">
+                    {error}
+                  </span>
+                )}
                 <div className="d-flex align-items-center gap-1 rem"></div>
                 <div className="mt-2 lg_btn">
-                  <button type="submit">Sign up</button>
+                  <button type="submit">
+                    {loading ? (
+                      <>
+                        <Loading />
+                        Loading...
+                      </>
+                    ) : (
+                      "Sign up"
+                    )}
+                  </button>
                 </div>
                 <div className="mt-1 sn_ln">
                   <div className="d-flex align-items-center">

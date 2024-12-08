@@ -43,7 +43,7 @@ export async function signupApi(
       "Content-Type": "application/json",
     },
   });
-  const result = response.json();
+  const result = await response.json();
   if (!response.ok) {
     errorHandler(result.message);
     return;
@@ -70,5 +70,23 @@ export async function loginApi(
     return;
   }
   successHandler(result.message);
+  return result;
+}
+export async function getUserProfile(
+  accessToken,
+  errorHandler = () => {},
+  successHandler = () => {}
+) {
+  const url = new URL("user/profile", BASE_URL);
+  const response = await fetch(url, {
+    headers: {
+      "access-token": `Bearer ${accessToken}`,
+    },
+  });
+  const result = response.json();
+  if (!response.ok) {
+    errorHandler(result.message);
+    return;
+  }
   return result;
 }
