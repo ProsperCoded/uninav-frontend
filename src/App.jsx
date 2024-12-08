@@ -10,21 +10,7 @@ import Login from "./Pages/Login";
 import Main from "./Pages/Main";
 import Sch_result from "./Pages/Sch_result";
 import { ConfigProvider } from "antd";
-import { message } from "antd";
-import { USER_PROFILE_CONTEXT, MESSAGE_API_CONTEXT } from "./context";
-import { useState } from "react";
-function ContextWrapper({ children }) {
-  const [messageApi, contextHolder] = message.useMessage();
-  const [userProfile, setUserProfile] = useState(null);
-  return (
-    <MESSAGE_API_CONTEXT.Provider value={messageApi}>
-      <USER_PROFILE_CONTEXT.Provider value={{ userProfile, setUserProfile }}>
-        {contextHolder}
-        {children}
-      </USER_PROFILE_CONTEXT.Provider>
-    </MESSAGE_API_CONTEXT.Provider>
-  );
-}
+import { ContextWrapper } from "./context";
 function AntDesignConfig({ children }) {
   return (
     <ConfigProvider
@@ -46,6 +32,7 @@ function AntDesignConfig({ children }) {
 const App = () => {
   return (
     <BrowserRouter>
+      <AntDesignConfig />
       <ContextWrapper>
         <Routes>
           <Route path="/" element={<HomePage />} />
@@ -56,6 +43,7 @@ const App = () => {
           <Route path="/main_page" element={<Main />} />
         </Routes>
       </ContextWrapper>
+      <AntDesignConfig />
     </BrowserRouter>
   );
 };
