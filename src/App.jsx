@@ -49,8 +49,8 @@ const App = () => {
       <ContextWrapper>
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/signUp" element={<SignUp />} />
-          <Route path="/logIn" element={<Login />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/forgot_password" element={<Forgot_Password />} />
           <Route path="/search_result" element={<Sch_result />} />
           <Route path="/main_page" element={<Main />} />
